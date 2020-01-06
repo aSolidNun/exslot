@@ -1,3 +1,3 @@
 defmodule Slot.SpinConfiguration do
-    defstruct reels: [], paytable: %{}
+  defstruct reels: [], paytable: %{}
 end
