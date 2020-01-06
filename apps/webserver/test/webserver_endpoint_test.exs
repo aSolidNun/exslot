@@ -14,7 +14,7 @@ defmodule Webserver.EndpointTest do
     end
 
     test "returns 200 OK with valid request body" do
-        conn = conn(:post, "/spin", %{action: SPIN})
+        conn = conn(:get, "/spin")
         conn = Webserver.Endpoint.call(conn, @opts)
 
         assert conn.status == 200

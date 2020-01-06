@@ -15,13 +15,9 @@ defmodule Webserver.Endpoint do
         send_resp(conn, 200, "OK")
     end
 
-    post "/spin" do
-        {status, body} = 
-            case conn.body_params do
-                %{"action" => action} -> {200, process_action(action)}
-                _ -> {200, wrong_format()}
-            end
-        send_resp(conn, status, body)
+    get "/spin" do
+        spin_response = Slot.spin()
+        send_resp(conn, 200, Poison.encode!(spin_response))
     end
 
     match _ do
