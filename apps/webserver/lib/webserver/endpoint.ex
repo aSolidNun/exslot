@@ -16,7 +16,8 @@ defmodule Webserver.Endpoint do
   end
 
   get "/spin" do
-    spin_response = Slot.spin()
+    spin_response = Webserver.Formatter.format(Slot.spin())
+    
     send_resp(conn, 200, Poison.encode!(spin_response))
   end
 
