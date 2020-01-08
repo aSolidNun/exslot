@@ -1,4 +1,4 @@
 import Config
 
-config :webserver, 
-    port: 8080
+config :webserver,
+  port: 8080
