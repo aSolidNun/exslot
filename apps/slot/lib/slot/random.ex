@@ -23,6 +23,15 @@ defmodule Slot.Random do
     Enum.zip(positions, strip)
   end
 
+  @doc """
+  Returns a random outcome for the given weighted distribution.
+  """
+  def weighted_outcome(distribution) do
+    Enum.map(distribution, fn {sym, count} -> Enum.take(Stream.cycle([sym]), count) end)
+    |> Enum.concat()
+    |> Enum.random()
+  end
+
   defp take_at(reel, at, count) do
     Stream.cycle(reel)
     |> Enum.take(at + count)
