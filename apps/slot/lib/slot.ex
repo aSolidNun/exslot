@@ -1,6 +1,9 @@
 defmodule Slot do
-  def spin() do
-    spin_configuration = Slot.Rules.spin_configuration()
+  @doc """
+  Makes a spin with the given `type` and returns a Slot.SpinResult
+  """
+  def spin(type) do
+    spin_configuration = Slot.Rules.spin_configuration(type)
 
     outcome =
       spin_configuration.reels

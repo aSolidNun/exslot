@@ -1,9 +1,9 @@
 defmodule Slot.Rules do
-  def spin_configuration() do
+  def spin_configuration(_type) do
     reelset = reelsets()
 
     reels =
-      [:b0, :b1, :b2]
+      [:basic0, :basic1, :basic2]
       |> Enum.map(fn reel -> reelset[reel] end)
       |> Enum.zip(reelarea())
 
@@ -26,75 +26,16 @@ defmodule Slot.Rules do
     ]
   end
 
+  defp random_reel() do
+    Enum.zip([:wild, :sym1, :sym2, :sym3, :sym4, :sym5, :sym6, :sym7, :sym8, :sym9], [10, 20, 25, 30, 40, 50, 50, 50, 50, 50])
+    |> Enum.map(fn {sym, count} -> Enum.take(Stream.cycle([sym]), count) end)
+    |> Enum.concat()
+    |> Enum.shuffle()
+  end
+
   def reelsets() do
-    %{
-      :b0 => [
-        :sym3,
-        :wild,
-        :sym2,
-        :sym5,
-        :sym3,
-        :sym4,
-        :wild,
-        :sym1,
-        :sym5,
-        :wild,
-        :sym2,
-        :sym3,
-        :sym2,
-        :sym4,
-        :sym4,
-        :sym5,
-        :wild,
-        :sym1,
-        :sym1,
-        :sym1
-      ],
-      :b1 => [
-        :sym5,
-        :sym5,
-        :sym4,
-        :sym3,
-        :wild,
-        :wild,
-        :wild,
-        :sym3,
-        :wild,
-        :sym1,
-        :sym5,
-        :sym4,
-        :sym2,
-        :sym3,
-        :sym1,
-        :sym1,
-        :sym2,
-        :sym1,
-        :sym4,
-        :sym2
-      ],
-      :b2 => [
-        :sym1,
-        :sym3,
-        :sym1,
-        :sym2,
-        :sym2,
-        :sym3,
-        :sym1,
-        :sym5,
-        :wild,
-        :sym4,
-        :wild,
-        :sym5,
-        :sym4,
-        :sym1,
-        :sym3,
-        :sym5,
-        :sym4,
-        :wild,
-        :sym2,
-        :wild
-      ]
-    }
+    [:basic0, :basic1, :basic2, :basic3, :basic4, :freespin0, :freespin1, :freespin2, :freespin3, :freespin4]
+    |> Enum.map(fn reel -> {reel, random_reel()} end)
   end
 
   def paytable() do
