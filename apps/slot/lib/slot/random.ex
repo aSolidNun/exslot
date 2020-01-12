@@ -24,7 +24,7 @@ defmodule Slot.Random do
   end
 
   @doc """
-  Returns a random outcome for the given weighted distribution.
+  Returns a random outcome for the given weighted `distribution`.
   """
   def weighted_outcome(distribution) do
     Enum.map(distribution, fn {sym, count} -> Enum.take(Stream.cycle([sym]), count) end)
