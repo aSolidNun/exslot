@@ -1,14 +1,15 @@
 defmodule Webserver.Application do
-  # See https://hexdocs.pm/elixir/Application.html
-  # for more information on OTP Applications
-  @moduledoc false
+  @moduledoc "Simple webserver"
 
   use Application
 
   def start(_type, _args) do
     children = [
-      # Starts a worker by calling: Webserver.Worker.start_link(arg)
-      # {Webserver.Worker, arg}
+      Plug.Cowboy.child_spec(
+        scheme: :http,
+        plug: Webserver.Endpoint,
+        options: [port: Application.get_env(:webserver, :port)]
+      )
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
