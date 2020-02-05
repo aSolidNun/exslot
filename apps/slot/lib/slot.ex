@@ -7,7 +7,7 @@ defmodule Slot do
 
     outcome =
       spin_configuration.reels
-      |> Enum.map(fn {reel, positions} -> Slot.Reel.reel_stop(reel, positions) end)
+      |> Enum.map(fn {reel, positions} -> Slot.Random.reel_stop(reel, positions) end)
       |> Enum.concat()
       |> Enum.into(%{})
 
