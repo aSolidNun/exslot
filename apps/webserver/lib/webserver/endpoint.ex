@@ -16,21 +16,12 @@ defmodule Webserver.Endpoint do
   end
 
   get "/spin" do
-    spin_response = Webserver.Formatter.format(Slot.spin())
+    spin_response = Webserver.Formatter.format(Slot.spin(:basic))
     
     send_resp(conn, 200, Poison.encode!(spin_response))
   end
 
   match _ do
     send_resp(conn, 404, "Nothing here")
-  end
-
-  ### Handlers
-  defp process_action(action) do
-    Poison.encode!(%{response: "Processing #{action}.."})
-  end
-
-  defp wrong_format() do
-    Poison.encode!(%{response: "Wrong format on the request missing action."})
   end
 end

@@ -1,10 +1,13 @@
 defmodule Slot do
-  def spin() do
-    spin_configuration = Slot.Rules.spin_configuration()
+  @doc """
+  Makes a spin with the given `type` and returns a Slot.SpinResult
+  """
+  def spin(type) do
+    spin_configuration = Slot.Rules.spin_configuration(type)
 
     outcome =
       spin_configuration.reels
-      |> Enum.map(fn {reel, positions} -> Slot.Reel.reel_stop(reel, positions) end)
+      |> Enum.map(fn {reel, positions} -> Slot.Random.reel_stop(reel, positions) end)
       |> Enum.concat()
       |> Enum.into(%{})
 
@@ -33,7 +36,7 @@ defmodule Slot do
     if win > 0 do
       {sequence, win}
     else
-      {line, win}
+      {line, 0}
     end
   end
 end
