@@ -36,7 +36,7 @@ defmodule Slot do
     if win > 0 do
       {sequence, win}
     else
-      {line, win}
+      {line, 0}
     end
   end
 end
